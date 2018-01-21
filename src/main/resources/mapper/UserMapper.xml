@@ -7,6 +7,10 @@
         id, username
     </sql>
 
+    <select id="selectUserList" resultType="Sys_User">
+        SELECT * FROM sys_user WHERE state=#{state}
+    </select>
+
     <delete id="deleteAll">
         DELETE FROM USER
     </delete>

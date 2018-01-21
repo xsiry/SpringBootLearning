@@ -33,7 +33,9 @@ public class UserRestController {
         JSONObject result = new JSONObject();
         Page<Sys_User> page = new Page<>(offset, limit);
         page.setOrderByField("username").setAsc(false);
-        result.put("records", userService.selectUserPage(page, 1));
+        page = userService.selectUserPage(page, 1);
+        result.put("rows", page.getRecords());
+        result.put("total", page.getTotal());
         return result;
     }
     @PostMapping(path = "/")
