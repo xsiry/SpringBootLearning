@@ -1,9 +1,10 @@
 package com.x.proc.service.impl;
 
-import com.x.proc.dao.UserDao;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.x.proc.mapper.UserMapper;
 import com.x.proc.pojo.Sys_User;
-import com.x.proc.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.x.proc.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,16 +14,18 @@ import java.util.List;
  * User: xsiry
  * Date: 18/01/2018
  * Time: 4:46 PM
+ * ReMake:  Sys_User表数据服务层接口实现类
  */
 
 @Service
-public class UserServiceImpl implements UserService {
-
-    @Autowired
-    private UserDao userDao;
+public class UserServiceImpl extends ServiceImpl<UserMapper, Sys_User> implements IUserService {
 
     @Override
-    public List<Sys_User> findAll() {
-        return userDao.findAll();
+    public List<Sys_User> selectListBySQL() {
+        return baseMapper.selectListBySQL();
+    }
+
+    public Page<Sys_User> selectUserPage(Page<Sys_User> page, Integer state) {
+        return page.setRecords(baseMapper.selectUserList(page, state));
     }
 }

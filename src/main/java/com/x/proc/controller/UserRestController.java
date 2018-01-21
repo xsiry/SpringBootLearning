@@ -1,11 +1,11 @@
 package com.x.proc.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.x.proc.pojo.Sys_User;
-import com.x.proc.service.UserService;
+import com.x.proc.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,11 +22,23 @@ import java.util.List;
 public class UserRestController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
-    @RequestMapping(path = "/findAll", method = RequestMethod.GET)
-    public Object findAll() {
-        List<Sys_User> list = userService.findAll();
-        return list;
+    // 创建线程安全的Map
+//    static Map<Long, Sys_User> users = Collections.synchronizedMap(new HashMap<Long, Sys_User>());
+
+    @GetMapping
+    public Object getPageList(@RequestParam(value = "offset") int offset, @RequestParam(value = "limit") int limit ) {
+//        List<Sys_User> r = new ArrayList<Sys_User>(users.values());
+        JSONObject result = new JSONObject();
+        Page<Sys_User> page = new Page<>(offset, limit);
+        page.setOrderByField("username").setAsc(false);
+        result.put("records", userService.selectUserPage(page, 1));
+        return result;
+    }
+    @PostMapping(path = "/")
+    public String post(@ModelAttribute Sys_User user) {
+//        userService.post(user);
+        return "success";
     }
 }

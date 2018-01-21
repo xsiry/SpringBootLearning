@@ -1,5 +1,9 @@
 package com.x.proc.pojo;
 
+import com.x.proc.pojo.enums.GenderEnum;
+
+import java.util.Date;
+
 /**
  * Created by IntelliJ IDEA.
  * User: xsiry
@@ -7,6 +11,7 @@ package com.x.proc.pojo;
  * Time: 4:29 PM
  * Remake: 用户实体类
  */
+@SuppressWarnings("serial")
 public class Sys_User {
 
     private Long id; // 用户id
@@ -14,10 +19,11 @@ public class Sys_User {
     private String username; // 用户名
     private String password; // 密码
     private String relName; // 真是姓名
+    private GenderEnum gender; // 性别
     private String mobile; // 电话
     private String idCard; // 身份证号
-    private String createdAt; // 创建时间
-    private String status; // 状态
+    private Date createdAt; // 创建时间
+    private String state; // 状态
 
     public Long getId() {
         return id;
@@ -75,19 +81,27 @@ public class Sys_User {
         this.idCard = idCard;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public GenderEnum getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderEnum gender) {
+        this.gender = gender;
     }
 }
