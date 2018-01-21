@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 public class Application {
 
-	protected final static Logger logger = LoggerFactory.getLogger(Application.class);
+	private final static Logger logger = LoggerFactory.getLogger(Application.class);
 
 	// 程序启动入口
 	// 启动嵌入式的 Tomcat 并初始化 Spring 环境及其各 Spring 组件
@@ -21,9 +21,7 @@ public class Application {
 		SpringApplication app = new SpringApplication(Application.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
-//		SpringApplication.run(Application.class, args);
-		logger.info("PortalApplication is success!");
-		System.err.println("sample started. http://localhost:8080/");
+		logger.info("PortalApplication is success! URL: http://localhost:8080/");
 //		SpringApplication.run(Application.class, args);
 	}
 }

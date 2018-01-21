@@ -1,5 +1,6 @@
 package com.x.proc.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.x.proc.pojo.enums.GenderEnum;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  * Remake: 用户实体类
  */
 @SuppressWarnings("serial")
+@TableName("sys_user")
 public class Sys_User {
 
     private Long id; // 用户id

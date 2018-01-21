@@ -3,7 +3,7 @@ package com.x.proc.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.x.proc.mapper.UserMapper;
-import com.x.proc.pojo.Sys_User;
+import com.x.proc.pojo.SysUser;
 import com.x.proc.service.IUserService;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +18,14 @@ import java.util.List;
  */
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, Sys_User> implements IUserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements IUserService {
 
     @Override
-    public List<Sys_User> selectListBySQL() {
+    public List<SysUser> selectListBySQL() {
         return baseMapper.selectListBySQL();
     }
 
-    public Page<Sys_User> selectUserPage(Page<Sys_User> page, Integer state) {
+    public Page<SysUser> selectUserPage(Page<SysUser> page, Integer state) {
         return page.setRecords(baseMapper.selectUserList(page, state));
     }
 }

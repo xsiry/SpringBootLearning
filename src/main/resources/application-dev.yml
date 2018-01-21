@@ -5,7 +5,7 @@ server:
 spring:
 ## 数据源配置
   datasource:
-    url: jdbc:mysql://localhost:3306/sb_proc?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/sb_proc?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
     username: root
     password:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -51,5 +51,5 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 #logging
-#logging:
-#level: warn
+logging:
+  level: warn

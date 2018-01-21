@@ -2,7 +2,7 @@ package com.x.proc.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.x.proc.pojo.Sys_User;
+import com.x.proc.pojo.SysUser;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import java.util.List;
  * Time: 4:44 PM
  * ReMake: 用户业务逻辑接口类
  */
-public interface IUserService extends IService<Sys_User> {
+public interface IUserService extends IService<SysUser> {
     /**
      * 查询用户列表
      */
-    List<Sys_User> selectListBySQL();
+    List<SysUser> selectListBySQL();
 
-    Page<Sys_User> selectUserPage(Page<Sys_User> page, Integer state);
+    Page<SysUser> selectUserPage(Page<SysUser> page, Integer state);
 }
