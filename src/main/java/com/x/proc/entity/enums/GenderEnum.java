@@ -1,4 +1,4 @@
-package com.x.proc.pojo.enums;
+package com.x.proc.entity.enums;
 
 import com.baomidou.mybatisplus.enums.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;

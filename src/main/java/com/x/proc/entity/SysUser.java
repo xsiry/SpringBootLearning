@@ -1,8 +1,14 @@
-package com.x.proc.pojo;
+package com.x.proc.entity;
 
-import com.x.proc.pojo.enums.GenderEnum;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
+import com.x.proc.entity.enums.GenderEnum;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,12 +17,14 @@ import java.util.Date;
  * Time: 4:29 PM
  * Remake: 用户实体类
  */
-@SuppressWarnings("serial")
-public class SysUser {
+public class SysUser extends Model<SysUser>{
+
+    private static final long serialVersionUID = -5561042921085738334L;
 
     private Long id; // 用户id
     private Long roleId; // 角色id
     private String username; // 用户名
+    @TableField(strategy=FieldStrategy.NOT_EMPTY)
     private String password; // 密码
     private String relName; // 真是姓名
     private GenderEnum gender; // 性别
@@ -24,6 +32,20 @@ public class SysUser {
     private String idCard; // 身份证号
     private Date createdAt; // 创建时间
     private String state; // 状态
+
+    /**
+     * 角色列表
+     */
+    @TableField(exist = false)
+    private List<SysRole> roles = new ArrayList<>();
+
+    @TableField(exist = false)
+    private String roleIds;
+    /**
+     * 菜单列表
+     */
+    @TableField(exist = false)
+    private List<SysMenu> menus = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -103,5 +125,34 @@ public class SysUser {
 
     public void setGender(GenderEnum gender) {
         this.gender = gender;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    public String getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    public List<SysMenu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<SysMenu> menus) {
+        this.menus = menus;
     }
 }
