@@ -2,7 +2,7 @@ package com.x.proc.mapper;
 
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.x.proc.SuperMapper;
-import com.x.proc.pojo.SysUser;
+import com.x.proc.entity.SysUser;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -31,3 +31,4 @@ public interface UserMapper extends SuperMapper<SysUser> {
      */
     List<SysUser> selectUserList(Pagination page, Integer state);
 }
+
