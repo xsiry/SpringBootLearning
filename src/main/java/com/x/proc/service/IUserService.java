@@ -2,7 +2,7 @@ package com.x.proc.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.x.proc.entity.SysUser;
+import com.x.proc.entity.sys.SysUser;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.x.proc.mapper;
 
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.x.proc.SuperMapper;
-import com.x.proc.entity.SysUser;
+import com.x.proc.entity.sys.SysUser;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * Date: 19/01/2018
  * Time: 6:09 PM
  */
-public interface UserMapper extends SuperMapper<SysUser> {
+public interface IUserMapper extends SuperMapper<SysUser> {
 
     @Select("select * from sys_user")
     List<SysUser> selectListBySQL();
