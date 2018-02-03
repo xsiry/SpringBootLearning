@@ -7,8 +7,8 @@
         id, username
     </sql>
 
-    <select id="selectUserList" resultType="SysUser">
-        SELECT * FROM sys_user WHERE state=#{state}
+    <select id="login" resultType="SysUser">
+        SELECT * FROM sys_user WHERE username=#{username} AND password=#{password} LIMIT 1
     </select>
 
     <delete id="deleteAll">

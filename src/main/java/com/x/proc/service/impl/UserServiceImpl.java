@@ -5,8 +5,12 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.x.proc.mapper.IUserMapper;
 import com.x.proc.entity.sys.SysUser;
 import com.x.proc.service.IUserService;
+import com.x.proc.utils.AppHelper;
 import org.springframework.stereotype.Service;
+import sun.security.provider.MD5;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -21,11 +25,12 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<IUserMapper, SysUser> implements IUserService {
 
     @Override
-    public List<SysUser> selectListBySQL() {
-        return baseMapper.selectListBySQL();
-    }
-
-    public Page<SysUser> selectUserPage(Page<SysUser> page, Integer state) {
-        return page.setRecords(baseMapper.selectUserList(page, state));
+    public SysUser login(SysUser user) {
+        try {
+            user.setPassword(AppHelper.MD5(user.getPassword()));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return baseMapper.selectOne(user);
     }
 }

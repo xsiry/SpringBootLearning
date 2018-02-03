@@ -21,7 +21,7 @@ import java.io.Serializable;
  */
 public abstract class GenericController<ENTITY, PK extends Serializable> {
 
-    private static final String SUCCESS = "success";
+    protected static final String SUCCESS = "success";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

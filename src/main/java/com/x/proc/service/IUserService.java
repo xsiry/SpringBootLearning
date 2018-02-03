@@ -15,9 +15,7 @@ import java.util.List;
  */
 public interface IUserService extends IService<SysUser> {
     /**
-     * 查询用户列表
+     * 用户登陆
      */
-    List<SysUser> selectListBySQL();
-
-    Page<SysUser> selectUserPage(Page<SysUser> page, Integer state);
+    SysUser login(SysUser user);
 }
