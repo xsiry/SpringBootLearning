@@ -18,12 +18,12 @@ define(function(require, exports, module) {
 
     var url = '/user',
         table = 'sys_user',
-        source_id = 'user_id',
-        row_name = 'account',
-        sort_name = 'account',
+        source_id = 'id',
+        row_name = 'username',
+        sort_name = 'username',
         sort_order = 'asc',
         validationInput = {
-            account: {
+            username: {
                 validators: {
                     notEmpty: {
                         message: '用户名不能为空'
@@ -34,14 +34,14 @@ define(function(require, exports, module) {
                     }
                 }
             },
-            relname: {
+            relName: {
                 validators: {
                     notEmpty: {
                         message: '真实姓名不能为空'
                     }
                 }
             },
-            pwd: {
+            password: {
                 validators: {
                     notEmpty: {
                         message: '密码不能为空'
@@ -59,7 +59,7 @@ define(function(require, exports, module) {
                         field: 'confirm_pwd',
                         message: '密码与确认密码不一致'
 
-                    },
+                    }
                 }
             },
             confirm_pwd: {
@@ -77,16 +77,23 @@ define(function(require, exports, module) {
                         message: '密码只能由大小写字母和数字组成'
                     },
                     identical: {
-                        field: 'pwd',
+                        field: 'password',
                         message: '确认密码与密码不一致'
 
                     }
                 }
             },
-            rid: {
+            mobile: {
                 validators: {
                     notEmpty: {
-                        message: '用户角色不能为空'
+                        message: '电话不能为空'
+                    }
+                }
+            },
+            idCard: {
+                validators: {
+                    notEmpty: {
+                        message: '身份证不能为空'
                     }
                 }
             }
@@ -129,7 +136,7 @@ define(function(require, exports, module) {
             type: 'blue',
             animationSpeed: 300,
             title: row? ('修改 ' + row[row_name]) : '新增',
-            content: 'URL:../app/'+ url +'_dialog.html',
+            content: 'URL:../app'+ url + url +'_dialog.html',
             buttons: {
                 confirm: {
                     text: '确认',
@@ -151,9 +158,9 @@ define(function(require, exports, module) {
                     initSelect();
 
                     $.each(row, function (key, val) {
-                        if(key === 'rid'){
-                            initSelect(val);
-                        } else if (key === 'pwd') {
+                        if (key === 'gender') {
+                            self.$content.find('input[name="' + key + '"][value="'+ (val==="男"? 'ZERO':'ONE') +'"]').trigger('click');
+                        } else if (key === 'password') {
                             self.$content.find('label[for="' + key + '"]').parent().remove();
                             self.$content.find('label[for="confirm_pwd"]').parent().remove();
                         } else {
@@ -202,17 +209,14 @@ define(function(require, exports, module) {
     }
 
     function initSelect(val) {
-        var params = {
-            source: 't_role',
-            qtype: 'select'
-        };
-        $.getJSON('/user', params, function(json) {
+        $.getJSON('/role/select', {}, function(json) {
+            var data = json.data;
             var arr = [];
-            for (var i = 0; i < json.length; i ++) {
-                var data = {};
-                data.id = json[i].rid;
-                data.text = json[i].rolename;
-                arr.push(data);
+            for (var i = 0; i < data.length; i ++) {
+                var object = {};
+                object.id = data[i].id;
+                object.text = data[i].remarks;
+                arr.push(object);
             }
             $('#rid').empty().append("<option></option>");
             var select = $("select#rid").select2({
@@ -281,23 +285,28 @@ define(function(require, exports, module) {
                     text: '确认',
                     btnClass: 'waves-effect waves-button',
                     action: function() {
-                        $.post(url + '/del', { tid: row[source_id], tname: table }, function(result) {
-                            var msg;
-                            toastr.options = {
-                                closeButton: true,
-                                progressBar: true,
-                                showMethod: 'slideDown',
-                                timeOut: 4000
-                            };
-                            if (result.success) {
-                                msg = result.msg;
-                                toastr.success(msg);
-                                $table.bootstrapTable('refresh', {});
-                            } else {
-                                msg = result.msg;
-                                toastr.error(msg);
+                        $.ajax({
+                            type: 'DELETE',
+                            url: url + "/" + row[source_id],
+                            dataType: 'json',
+                            success: function(result) {
+                                var msg;
+                                toastr.options = {
+                                    closeButton: true,
+                                    progressBar: true,
+                                    showMethod: 'slideDown',
+                                    timeOut: 4000
+                                };
+                                if (result.success) {
+                                    msg = result.msg;
+                                    toastr.success(msg);
+                                    $table.bootstrapTable('refresh', {});
+                                } else {
+                                    msg = result.msg;
+                                    toastr.error(msg);
+                                }
                             }
-                        }, 'json');
+                        });
                     }
                 },
                 cancel: {
@@ -332,16 +341,7 @@ define(function(require, exports, module) {
         require('bootstrap-table');
         require('bootstrap-table-zh-CN');
         $table.bootstrapTable({
-            url: url,
-            queryParams: function(params) {
-                var x_params = {};
-                x_params.source = table;
-                x_params.page = params.offset;
-                x_params.pagesize = params.limit;
-                x_params.sortname = params.sort;
-                x_params.sortorder = params.order;
-                return x_params;
-            },
+            url: "/user/page",
             idField: source_id,
             sortName: sort_name,
             sortOrder: sort_order,

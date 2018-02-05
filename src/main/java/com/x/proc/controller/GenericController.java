@@ -3,6 +3,7 @@ package com.x.proc.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.x.proc.entity.sys.SysRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
+import java.sql.Wrapper;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -48,10 +51,10 @@ public abstract class GenericController<ENTITY, PK extends Serializable> {
      * @return BootStrap Table 数据结构
      */
     @GetMapping(value = "/page")
-    public Object page(@RequestParam(value = "offset") int offset, @RequestParam(value = "limit") int limit, @RequestParam(value = "sortname") String sortname, @RequestParam(value = "sortorder") String sortorder) {
+    public Object page(@RequestParam(value = "offset") int offset, @RequestParam(value = "limit") int limit, @RequestParam(value = "sort") String sort, @RequestParam(value = "order") String order) {
         Page<ENTITY> page = new Page<>(offset, limit);
         JSONObject result = new JSONObject();
-        page.setOrderByField(sortname).setAsc(sortorder.equals("asc"));
+        page.setOrderByField(sort).setAsc(order.equals("asc"));
         page = getService().selectPage(page);
         result.put(SUCCESS, true);
         result.put("rows", page.getRecords());

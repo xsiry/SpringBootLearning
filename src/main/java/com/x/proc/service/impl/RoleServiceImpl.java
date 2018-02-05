@@ -6,6 +6,8 @@ import com.x.proc.mapper.IRoleMapper;
 import com.x.proc.service.IRoleServic;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: xsiry
@@ -15,4 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl extends ServiceImpl<IRoleMapper, SysRole> implements IRoleServic{
 
+    public List<SysRole> selectCom() {
+        return baseMapper.selectCom();
+    }
 }

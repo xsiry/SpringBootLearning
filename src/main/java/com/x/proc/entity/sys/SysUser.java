@@ -3,6 +3,8 @@ package com.x.proc.entity.sys;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.x.proc.entity.enums.GenderEnum;
+import com.x.proc.entity.enums.RoleEnum;
+import com.x.proc.entity.enums.UserStateEnum;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class SysUser extends Model<SysUser>{
     public static final long ADMIN_USER_ID = 1;
 
     private Long id; // 用户id
-    private Long roleId; // 角色id
+    private RoleEnum roleId; // 角色id
     private String username; // 用户名
     private String password; // 密码
     private String relName; // 真是姓名
@@ -35,7 +37,7 @@ public class SysUser extends Model<SysUser>{
     private String idCard; // 身份证号
     private Date createdAt; // 创建时间
     private Date updateAt; // 更新时间
-    private String state; // 状态
+    private UserStateEnum state; // 状态
     private String delFlag; // 删除标记 1：删除 0：未删除
 
     /**
@@ -60,11 +62,11 @@ public class SysUser extends Model<SysUser>{
         this.id = id;
     }
 
-    public Long getRoleId() {
+    public RoleEnum getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(RoleEnum roleId) {
         this.roleId = roleId;
     }
 
@@ -116,11 +118,11 @@ public class SysUser extends Model<SysUser>{
         this.createdAt = createdAt;
     }
 
-    public String getState() {
+    public UserStateEnum getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(UserStateEnum state) {
         this.state = state;
     }
 

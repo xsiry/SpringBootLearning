@@ -35,6 +35,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
@@ -46,6 +51,12 @@
 			<artifactId>springloaded</artifactId>
 			<version>1.2.6.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.ecf</groupId>
+			<artifactId>org.apache.commons.codec</artifactId>
+			<version>1.9.0.v20170208-1614</version>
+		</dependency>
+
 
 		<!-- mybatis-plus begin -->
 		<dependency>

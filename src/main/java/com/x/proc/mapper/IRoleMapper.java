@@ -3,6 +3,8 @@ package com.x.proc.mapper;
 import com.x.proc.SuperMapper;
 import com.x.proc.entity.sys.SysRole;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: xsiry
@@ -10,5 +12,5 @@ import com.x.proc.entity.sys.SysRole;
  * Time: 9:12 PM
  */
 public interface IRoleMapper extends SuperMapper<SysRole> {
-
+    public List<SysRole> selectCom();
 }
