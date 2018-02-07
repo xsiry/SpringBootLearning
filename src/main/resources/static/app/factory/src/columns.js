@@ -1,6 +1,7 @@
 define([
-    { field: 'factory', title: '厂商名称', sortable: true, halign: 'center' },
-    { field: 'payment_url', title: '支付接口地址', sortable: true, halign: 'center' },
+    { field: 'name', title: '厂商名称', sortable: true, halign: 'center' },
+    { field: 'inTotal', title: '总进货', sortable: true, halign: 'center' },
+    { field: 'outTotal', title: '总出货', sortable: true, halign: 'center' },
     { field: 'action', title: '操作', halign: 'center', align: 'center', formatter: actionFormatter, events: 'actionEvents', clickToSelect: false }
 ]);
 

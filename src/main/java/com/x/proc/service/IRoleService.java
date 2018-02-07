@@ -11,7 +11,7 @@ import java.util.List;
  * Date: 24/01/2018
  * Time: 9:17 PM
  */
-public interface IRoleServic extends IService<SysRole> {
+public interface IRoleService extends IService<SysRole> {
 
     public List<SysRole> selectCom();
 }

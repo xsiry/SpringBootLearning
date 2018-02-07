@@ -18,19 +18,12 @@ define(function(require, exports, module) {
 
     var url = '/factory',
         table = 't_factory',
-        source_id = 'factory_id',
-        row_name = 'factory',
-        sort_name = 'factory',
+        source_id = 'id',
+        row_name = 'name',
+        sort_name = 'name',
         sort_order = 'asc',
         validationInput = {
-            factory: {
-                validators: {
-                    notEmpty: {
-                        message: '该项不能为空'
-                    }
-                }
-            },
-            payment_url: {
+            name: {
                 validators: {
                     notEmpty: {
                         message: '该项不能为空'
@@ -76,7 +69,7 @@ define(function(require, exports, module) {
             type: 'blue',
             animationSpeed: 300,
             title: row? ('修改 ' + row[row_name]) : '新增',
-            content: 'URL:../app/'+ url +'_dialog.html',
+            content: 'URL:../app'+ url + url +'_dialog.html',
             buttons: {
                 confirm: {
                     text: '确认',
@@ -98,11 +91,6 @@ define(function(require, exports, module) {
                     $.each(row, function (key, val) {
                         self.$content.find('label[for="' + key + '"]').addClass('active');
                         self.$content.find('input[name="' + key + '"]').val(val);
-                    });
-
-                    // 添加单选事件
-                    self.$content.on('click', 'input[name="showtype"]', function() {
-                        $(this).val() === "1"? self.$content.find('.x-url').show():self.$content.find('.x-url').hide();
                     });
 
                     self.$content.find('form').formValidation(formFvConfig()).on('success.form.fv', function (e) {
@@ -157,23 +145,28 @@ define(function(require, exports, module) {
                     text: '确认',
                     btnClass: 'waves-effect waves-button',
                     action: function() {
-                        $.post(url + '/del', { tid: row[source_id], tname: table }, function(result) {
-                            var msg;
-                            toastr.options = {
-                                closeButton: true,
-                                progressBar: true,
-                                showMethod: 'slideDown',
-                                timeOut: 4000
-                            };
-                            if (result.success) {
-                                msg = result.msg;
-                                toastr.success(msg);
-                                $table.bootstrapTable('refresh', {});
-                            } else {
-                                msg = result.msg;
-                                toastr.error(msg);
+                        $.ajax({
+                            type: 'DELETE',
+                            url: url + "/" + row[source_id],
+                            dataType: 'json',
+                            success: function(result) {
+                                var msg;
+                                toastr.options = {
+                                    closeButton: true,
+                                    progressBar: true,
+                                    showMethod: 'slideDown',
+                                    timeOut: 4000
+                                };
+                                if (result.success) {
+                                    msg = result.msg;
+                                    toastr.success(msg);
+                                    $table.bootstrapTable('refresh', {});
+                                } else {
+                                    msg = result.msg;
+                                    toastr.error(msg);
+                                }
                             }
-                        }, 'json');
+                        });
                     }
                 },
                 cancel: {
@@ -208,16 +201,7 @@ define(function(require, exports, module) {
         require('bootstrap-table');
         require('bootstrap-table-zh-CN');
         $table.bootstrapTable({
-            url: url,
-            queryParams: function(params) {
-                var x_params = {};
-                x_params.source = table;
-                x_params.page = params.offset;
-                x_params.pagesize = params.limit;
-                x_params.sortname = params.sort;
-                x_params.sortorder = params.order;
-                return x_params;
-            },
+            url: url+"/page",
             idField: source_id,
             sortName: sort_name,
             sortOrder: sort_order,

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.IService;
 import com.x.proc.controller.GenericController;
 import com.x.proc.entity.sys.SysRole;
-import com.x.proc.service.IRoleServic;
+import com.x.proc.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 public class RoleRestController extends GenericController<SysRole, Long> {
 
     @Autowired
-    private IRoleServic roleServic;
+    private IRoleService roleServic;
 
     @Override
     protected IService<SysRole> getService() {
