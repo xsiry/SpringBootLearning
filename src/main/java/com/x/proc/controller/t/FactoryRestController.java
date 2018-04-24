@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * Created by IntelliJ IDEA.
  * User: xsiry
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/factory")
 public class FactoryRestController extends GenericController<TFactory, Long> {
 
-    @Autowired
+    @Resource
     private IFactoryService factoryService;
 
     @Override

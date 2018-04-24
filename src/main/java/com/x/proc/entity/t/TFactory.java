@@ -1,8 +1,10 @@
 package com.x.proc.entity.t;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,54 +16,77 @@ public class TFactory extends Model<TFactory> {
 
     private static final long serialVersionUID = -4295199308475121609L;
 
-    private Long id;
+    private int id;
     /**
      * 厂商名称
      */
-    private String name;
+    private String factoryName;
     /**
      * 总进货
      */
-    private Integer inTotal;
+    private int inTotal;
     /**
      * 总出货
      */
-    private Integer outTotal;
+    private int outTotal;
+
+    @TableField(exist = false)
+    private List<TProduct> products; // 拥有产品
+
+    public TFactory() {
+
+    }
+
+    public TFactory(int id, String factoryName, int inTotal, int outTotal, List<TProduct> products) {
+        this.id = id;
+        this.factoryName = factoryName;
+        this.inTotal = inTotal;
+        this.outTotal = outTotal;
+        this.products = products;
+    }
 
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getInTotal() {
+    public int getInTotal() {
         return inTotal;
     }
 
-    public void setInTotal(Integer inTotal) {
+    public void setInTotal(int inTotal) {
         this.inTotal = inTotal;
     }
 
-    public Integer getOutTotal() {
+    public int getOutTotal() {
         return outTotal;
     }
 
-    public void setOutTotal(Integer outTotal) {
+    public void setOutTotal(int outTotal) {
         this.outTotal = outTotal;
+    }
+
+    public List<TProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<TProduct> products) {
+        this.products = products;
+    }
+
+    public String getFactoryName() {
+        return factoryName;
+    }
+
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
     }
 }

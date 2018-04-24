@@ -19,33 +19,19 @@ define(function(require, exports, module) {
 
     var url = '/product',
         table = 't_product',
-        source_id = 'product_id',
-        row_name = 'product',
-        sort_name = 'product',
+        source_id = 'id',
+        row_name = 'name',
+        sort_name = 'product_name',
         sort_order = 'asc',
         validationInput = {
-            product: {
+            name: {
                 validators: {
                     notEmpty: {
                         message: '该项不能为空'
                     }
                 }
             },
-            factory_id: {
-                validators: {
-                    notEmpty: {
-                        message: '该项不能为空'
-                    }
-                }
-            },
-            price: {
-                validators: {
-                    notEmpty: {
-                        message: '该项不能为空'
-                    }
-                }
-            },
-            days: {
+            factoryId: {
                 validators: {
                     notEmpty: {
                         message: '该项不能为空'
@@ -91,7 +77,7 @@ define(function(require, exports, module) {
             type: 'blue',
             animationSpeed: 300,
             title: row? ('修改 ' + row[row_name]) : '新增',
-            content: 'URL:../app/'+ url +'_dialog.html',
+            content: 'URL:../app'+ url + url +'_dialog.html',
             buttons: {
                 confirm: {
                     text: '确认',
@@ -164,61 +150,35 @@ define(function(require, exports, module) {
     }
 
     function initTouchspin() {
-        $("input[name='days']").TouchSpin({
-            prefix: "有效天数",
+        $("input[name='total']").TouchSpin({
+            prefix: "数目",
             min: 0,
-            max: 1000000000,
+            max: 100000000000000000000000000,
             step: 1,
             decimals: 0,
             boostat: 5,
             maxboostedstep: 100,
-            postfix: '天'
+            postfix: '个'
         });
 
         $("input[name='price']").TouchSpin({
-            prefix: "商品价格",
+            prefix: "单价",
             min: 0,
-            max: 1000000000,
-            step: 0.01,
+            max: 100000000000000000000000000,
+            step: 1,
             decimals: 2,
             boostat: 5,
             maxboostedstep: 100,
             postfix: '元'
         });
-
-        $("input[name='factory_rate']").TouchSpin({
-            prefix: "上游分成",
-            min: 0,
-            max: 100,
-            step: 0.1,
-            decimals: 2,
-            boostat: 5,
-            maxboostedstep: 10,
-            postfix: '%'
-        });
-
-        $("input[name='agent_rate']").TouchSpin({
-            prefix: "渠道分成",
-            min: 0,
-            max: 100,
-            step: 0.1,
-            decimals: 2,
-            boostat: 5,
-            maxboostedstep: 10,
-            postfix: '%'
-        });
     }
 
     function initSelect(val) {
-        var params = {
-            source: 't_factory',
-            qtype: 'select'
-        };
-        $.getJSON('/factory', params, function(json) {
+          $.getJSON('/factory/select', {}, function(json) {
             var arr = [];
             for (var i = 0; i < json.length; i ++) {
                 var data = {};
-                data.id = json[i].factory_id;
+                data.id = json[i].id;
                 data.text = json[i].factory;
                 arr.push(data);
             }
@@ -245,23 +205,28 @@ define(function(require, exports, module) {
                     text: '确认',
                     btnClass: 'waves-effect waves-button',
                     action: function() {
-                        $.post(url + '/del', { tid: row[source_id], tname: table }, function(result) {
-                            var msg;
-                            toastr.options = {
-                                closeButton: true,
-                                progressBar: true,
-                                showMethod: 'slideDown',
-                                timeOut: 4000
-                            };
-                            if (result.success) {
-                                msg = result.msg;
-                                toastr.success(msg);
-                                $table.bootstrapTable('refresh', {});
-                            } else {
-                                msg = result.msg;
-                                toastr.error(msg);
+                        $.ajax({
+                            type: 'DELETE',
+                            url: url + "/" + row[source_id],
+                            dataType: 'json',
+                            success: function(result) {
+                                var msg;
+                                toastr.options = {
+                                    closeButton: true,
+                                    progressBar: true,
+                                    showMethod: 'slideDown',
+                                    timeOut: 4000
+                                };
+                                if (result.success) {
+                                    msg = result.msg;
+                                    toastr.success(msg);
+                                    $table.bootstrapTable('refresh', {});
+                                } else {
+                                    msg = result.msg;
+                                    toastr.error(msg);
+                                }
                             }
-                        }, 'json');
+                        });
                     }
                 },
                 cancel: {
@@ -296,16 +261,7 @@ define(function(require, exports, module) {
         require('bootstrap-table');
         require('bootstrap-table-zh-CN');
         $table.bootstrapTable({
-            url: url,
-            queryParams: function(params) {
-                var x_params = {};
-                x_params.source = table;
-                x_params.page = params.offset;
-                x_params.pagesize = params.limit;
-                x_params.sortname = params.sort;
-                x_params.sortorder = params.order;
-                return x_params;
-            },
+            url: url+"/page",
             idField: source_id,
             sortName: sort_name,
             sortOrder: sort_order,
