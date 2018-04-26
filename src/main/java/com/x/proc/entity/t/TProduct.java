@@ -1,7 +1,6 @@
 package com.x.proc.entity.t;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
 
 import java.io.Serializable;
 
@@ -15,7 +14,7 @@ public class TProduct extends Model<TFactory> {
 
     private static final long serialVersionUID = -5332553974926111150L;
 
-    private int id;
+    private Long id;
 
     /**
      * 名称
@@ -47,7 +46,7 @@ public class TProduct extends Model<TFactory> {
 
     }
 
-    public TProduct(int id, String productName, String core, double price, int total, String remake, TFactory factory) {
+    public TProduct(Long id, String productName, String core, double price, int total, String remake, TFactory factory) {
         this.id = id;
         this.productName = productName;
         this.core = core;
@@ -62,11 +61,11 @@ public class TProduct extends Model<TFactory> {
         return this.id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

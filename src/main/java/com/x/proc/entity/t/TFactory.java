@@ -16,7 +16,7 @@ public class TFactory extends Model<TFactory> {
 
     private static final long serialVersionUID = -4295199308475121609L;
 
-    private int id;
+    private Long id;
     /**
      * 厂商名称
      */
@@ -37,7 +37,7 @@ public class TFactory extends Model<TFactory> {
 
     }
 
-    public TFactory(int id, String factoryName, int inTotal, int outTotal, List<TProduct> products) {
+    public TFactory(Long id, String factoryName, int inTotal, int outTotal, List<TProduct> products) {
         this.id = id;
         this.factoryName = factoryName;
         this.inTotal = inTotal;
@@ -50,11 +50,11 @@ public class TFactory extends Model<TFactory> {
         return this.id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
