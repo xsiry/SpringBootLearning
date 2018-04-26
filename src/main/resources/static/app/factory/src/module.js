@@ -19,8 +19,8 @@ define(function(require, exports, module) {
     var url = '/factory',
         table = 't_factory',
         source_id = 'id',
-        row_name = 'name',
-        sort_name = 'name',
+        row_name = 'factoryName',
+        sort_name = 'factory_name',
         sort_order = 'asc',
         validationInput = {
             name: {
@@ -116,8 +116,7 @@ define(function(require, exports, module) {
                                 timeOut: 4000
                             };
                             if (result.success) {
-                                msg = result.msg;
-                                toastr.success(msg);
+                                toastr.success("操作成功！");
                                 self.close();
                                 $table.bootstrapTable('refresh', {});
                             } else {
@@ -251,7 +250,7 @@ define(function(require, exports, module) {
         $table.bootstrapTable('refresh', {query: gridparms});
     }
     // bs表格按钮事件
-    window.actionEvents = {
+    window[row_name + 'ActionEvents'] = {
         'click .edit': function(e, value, row, index) {
             createAsUpdateAction(row)
         },

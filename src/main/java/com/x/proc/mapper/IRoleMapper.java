@@ -12,5 +12,5 @@ import java.util.List;
  * Time: 9:12 PM
  */
 public interface IRoleMapper extends SuperMapper<SysRole> {
-    public List<SysRole> selectCom();
+    List<SysRole> selectCom();
 }

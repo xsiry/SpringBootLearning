@@ -1,6 +1,7 @@
 package com.x.proc.entity.t;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 
 import java.io.Serializable;
 
@@ -19,6 +20,7 @@ public class TProduct extends Model<TFactory> {
     /**
      * 名称
      */
+    @TableField("product_name")
     private String productName;
     /**
      * 型号
@@ -36,17 +38,22 @@ public class TProduct extends Model<TFactory> {
      * 说明
      */
     private String remake;
+    /**
+     * 所属厂商id
+     */
+    private Long factoryId;
 
     /**
      * 所属厂商
      */
+    @TableField(exist = false)
     private TFactory factory;
 
     public TProduct() {
 
     }
 
-    public TProduct(Long id, String productName, String core, double price, int total, String remake, TFactory factory) {
+    public TProduct(Long id, String productName, String core, double price, int total, String remake, Long factoryId, TFactory factory) {
         this.id = id;
         this.productName = productName;
         this.core = core;
@@ -54,6 +61,7 @@ public class TProduct extends Model<TFactory> {
         this.total = total;
         this.remake = remake;
         this.factory = factory;
+        this.factoryId = factoryId;
     }
 
     @Override
@@ -115,5 +123,13 @@ public class TProduct extends Model<TFactory> {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public Long getFactoryId() {
+        return factoryId;
+    }
+
+    public void setFactoryId(Long factoryId) {
+        this.factoryId = factoryId;
     }
 }

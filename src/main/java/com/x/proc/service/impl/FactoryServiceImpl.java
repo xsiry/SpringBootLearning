@@ -6,6 +6,8 @@ import com.x.proc.mapper.IFactoryMapper;
 import com.x.proc.service.IFactoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: xsiry
@@ -15,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class FactoryServiceImpl extends ServiceImpl<IFactoryMapper, TFactory> implements IFactoryService {
 
+    @Override
+    public List<TFactory> selectCom() {
+        return baseMapper.selectCom();
+    }
 }

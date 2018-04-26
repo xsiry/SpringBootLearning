@@ -42,7 +42,7 @@ define(function (require, exports, module) {
             require('cookie');
             var systemid = $.cookie('admin-systemid') || 1;
             var systemname = $.cookie('admin-systemname') || 'admin-server';
-            var systemtitle = $.cookie('admin-systemtitle') || '阿里体育竞技后台';
+            var systemtitle = $.cookie('admin-systemtitle') || 'My后台';
             $('.system_menus').hide(0, function () {
                 $('.system_' + systemid).show();
             });

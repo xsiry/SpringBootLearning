@@ -3,6 +3,8 @@ package com.x.proc.mapper;
 import com.x.proc.SuperMapper;
 import com.x.proc.entity.t.TFactory;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: xsiry
@@ -11,5 +13,5 @@ import com.x.proc.entity.t.TFactory;
  * ReMake: 厂商管理
  */
 public interface IFactoryMapper extends SuperMapper<TFactory>{
-
+    List<TFactory> selectCom();
 }

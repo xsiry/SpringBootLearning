@@ -20,7 +20,7 @@ define(function(require, exports, module) {
     var url = '/product',
         table = 't_product',
         source_id = 'id',
-        row_name = 'name',
+        row_name = 'productName',
         sort_name = 'product_name',
         sort_order = 'asc',
         validationInput = {
@@ -95,20 +95,21 @@ define(function(require, exports, module) {
             },
             onOpen: function () {
                 var self = this;
+                console.log(row);
                 setTimeout(function () {
-                    // select2初始化
-                    initSelect();
-
-                    initTouchspin();
-
+                    var factory_id = null;
                     $.each(row, function (key, val) {
-                        if(key === 'factory_id'){
-                            initSelect(val);
+                        if(val && key === 'factory'){
+                            factory_id = val.id;
                         } else{
                             self.$content.find('label[for="' + key + '"]').addClass('active');
                             self.$content.find('input[name="' + key + '"]').val(val)
                         }
                     });
+
+                    // select2初始化
+                    initSelect(factory_id);
+                    initTouchspin();
 
                     self.$content.find('form').formValidation(formFvConfig()).on('success.form.fv', function (e) {
                         $(self.$$confirm[0]).prop("disabled", true);
@@ -133,8 +134,7 @@ define(function(require, exports, module) {
                                 timeOut: 4000
                             };
                             if (result.success) {
-                                msg = result.msg;
-                                toastr.success(msg);
+                                toastr.success("操作成功！");
                                 self.close();
                                 $table.bootstrapTable('refresh', {});
                             } else {
@@ -176,10 +176,10 @@ define(function(require, exports, module) {
     function initSelect(val) {
           $.getJSON('/factory/select', {}, function(json) {
             var arr = [];
-            for (var i = 0; i < json.length; i ++) {
+            for (var i = 0; i < json.data.length; i ++) {
                 var data = {};
-                data.id = json[i].id;
-                data.text = json[i].factory;
+                data.id = json.data[i].id;
+                data.text = json.data[i].factoryName;
                 arr.push(data);
             }
             $('#factory').empty().append("<option></option>");
@@ -311,7 +311,7 @@ define(function(require, exports, module) {
         $table.bootstrapTable('refresh', {query: gridparms});
     }
     // bs表格按钮事件
-    window.actionEvents = {
+    window[row_name + 'ActionEvents'] = {
         'click .edit': function(e, value, row, index) {
             createAsUpdateAction(row)
         },

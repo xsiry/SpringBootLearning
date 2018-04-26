@@ -5,7 +5,7 @@ define([
     { field: 'price', title: '单价', sortable: true, halign: 'center' },
     { field: 'total', title: '总数', sortable: true, halign: 'center' },
     { field: 'remake', title: '说明', sortable: true, halign: 'center' },
-    { field: 'action', title: '操作', halign: 'center', align: 'center', formatter: actionFormatter, events: 'actionEvents', clickToSelect: false }
+    { field: 'action', title: '操作', halign: 'center', align: 'center', formatter: actionFormatter, events: 'productNameActionEvents', clickToSelect: false }
 ]);
 
 function actionFormatter(value, row, index) {

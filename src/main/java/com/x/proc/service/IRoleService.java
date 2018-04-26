@@ -12,6 +12,5 @@ import java.util.List;
  * Time: 9:17 PM
  */
 public interface IRoleService extends IService<SysRole> {
-
-    public List<SysRole> selectCom();
+    List<SysRole> selectCom();
 }

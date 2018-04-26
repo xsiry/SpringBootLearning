@@ -20,6 +20,7 @@ public class TFactory extends Model<TFactory> {
     /**
      * 厂商名称
      */
+    @TableField("factory_name")
     private String factoryName;
     /**
      * 总进货
