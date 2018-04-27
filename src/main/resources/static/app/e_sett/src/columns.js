@@ -1,6 +1,8 @@
 define([
-    { field: 'gamename', title: '游戏名称', sortable: true, halign: 'center' },
-    { field: 'category', title: '游戏类型', sortable: true, halign: 'center', formatter: categoryFormatter },
+    { field: 'gamename', title: '员工姓名', sortable: true, halign: 'center' },
+    { field: 'category', title: '' +
+        '' +
+        '', sortable: true, halign: 'center', formatter: categoryFormatter },
     { field: 'showtype', title: '按钮类型', sortable: true, halign: 'center', formatter: showtypeFormatter },
     { field: 'runtype', title: '启动模式', sortable: true, halign: 'center', formatter: runtypeFormatter },
     { field: 'menuname', title: '应用菜单', sortable: true, halign: 'center', formatter: menunameFormatter },
@@ -17,9 +19,9 @@ define([
 ]);
 
 function actionFormatter(value, row, index) {
-    let apply = '<a class="apply ml10" href="javascript:void(0)" data-up="1" data-toggle="tooltip" title="上架"><i class="glyphicon glyphicon-circle-arrow-up"></i></a>　';
+    var apply = '<a class="apply ml10" href="javascript:void(0)" data-up="1" data-toggle="tooltip" title="上架"><i class="glyphicon glyphicon-circle-arrow-up"></i></a>　';
     if (row.status==="1") apply = '<a class="apply ml10" href="javascript:void(0)" data-up="0" data-toggle="tooltip" title="下架"><i class="glyphicon glyphicon-circle-arrow-down"></i></a>　';
-    let del = '';
+    var del = '';
     if (row.status==="0") del = '<a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>　';
     return [
         apply,
@@ -29,39 +31,39 @@ function actionFormatter(value, row, index) {
 }
 
 function runtypeFormatter(value, row, index) {
-    let text = {0:'加速', 1:'直接'};
+    var text = {0:'加速', 1:'直接'};
     return text[value];
 }
 
 function categoryFormatter(value, row, index) {
-    let text = {0:'图标', 1:'按钮'};
+    var text = {0:'图标', 1:'按钮'};
     return text[value];
 }
 
 function showtypeFormatter(value, row, index) {
-    let text = {0:'普通按钮', 1:'图片图片'};
+    var text = {0:'普通按钮', 1:'图片图片'};
     return text[value];
 }
 
 function statusFormatter(value, row, index) {
-    let text = {0:'未上架', 1:'已上架'};
+    var text = {0:'未上架', 1:'已上架'};
     return "<span style='color:"+(value==="0"?"red":"green")+";font-weight: bold;font-size: 14px;'>" + text[value] + "</span>";;
 }
 
 function menunameFormatter(value, row, index) {
-    let text = "<span style='color:red;font-weight: bold;font-size: 14px;'>" + value + "</span>";
+    var text = "<span style='color:red;font-weight: bold;font-size: 14px;'>" + value + "</span>";
     return value? text: "-";
 }
 
 function pngnameFormatter(value, row, index) {
-    let img = "<div style='position:relative;'><a class='x-pre-img-btn' href='javascript:void(0);'>预览</a><img class='x-pre-img' src="+ value +" hidden/></div>";
+    var img = "<div style='position:relative;'><a class='x-pre-img-btn' href='javascript:void(0);'>预览</a><img class='x-pre-img' src="+ value +" hidden/></div>";
     return value? img: "-";
 }
 
 // 数据表格展开内容
 function detailFormatter(index, row) {
-    let swit = {menuname: true, level:true, menuorder:true, showtype: true, url:true};
-    let html = [];
+    var swit = {menuname: true, level:true, menuorder:true, showtype: true, url:true};
+    var html = [];
     $.each(row, function(key, value) {
         if (swit[key]) html.push('<p><b>' + key + ':</b> ' + value + '</p>');
     });

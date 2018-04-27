@@ -23,13 +23,17 @@ public class TFactory extends Model<TFactory> {
     @TableField("factory_name")
     private String factoryName;
     /**
-     * 总进货
+     * 厂商地址
      */
-    private int inTotal;
+    private String factoryAdd;
     /**
-     * 总出货
+     * 厂商电话
      */
-    private int outTotal;
+    private String contno;
+    /**
+     * 厂商备注
+     */
+    private String remake;
 
     @TableField(exist = false)
     private List<TProduct> products; // 拥有产品
@@ -38,11 +42,12 @@ public class TFactory extends Model<TFactory> {
 
     }
 
-    public TFactory(Long id, String factoryName, int inTotal, int outTotal, List<TProduct> products) {
+    public TFactory(Long id, String factoryName, String factoryAdd, String contno, String remake, List<TProduct> products) {
         this.id = id;
         this.factoryName = factoryName;
-        this.inTotal = inTotal;
-        this.outTotal = outTotal;
+        this.factoryAdd = factoryAdd;
+        this.contno = contno;
+        this.remake = remake;
         this.products = products;
     }
 
@@ -59,20 +64,36 @@ public class TFactory extends Model<TFactory> {
         this.id = id;
     }
 
-    public int getInTotal() {
-        return inTotal;
+    public String getFactoryName() {
+        return factoryName;
     }
 
-    public void setInTotal(int inTotal) {
-        this.inTotal = inTotal;
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
     }
 
-    public int getOutTotal() {
-        return outTotal;
+    public String getFactoryAdd() {
+        return factoryAdd;
     }
 
-    public void setOutTotal(int outTotal) {
-        this.outTotal = outTotal;
+    public void setFactoryAdd(String factoryAdd) {
+        this.factoryAdd = factoryAdd;
+    }
+
+    public String getContno() {
+        return contno;
+    }
+
+    public void setContno(String contno) {
+        this.contno = contno;
+    }
+
+    public String getRemake() {
+        return remake;
+    }
+
+    public void setRemake(String remake) {
+        this.remake = remake;
     }
 
     public List<TProduct> getProducts() {
@@ -81,13 +102,5 @@ public class TFactory extends Model<TFactory> {
 
     public void setProducts(List<TProduct> products) {
         this.products = products;
-    }
-
-    public String getFactoryName() {
-        return factoryName;
-    }
-
-    public void setFactoryName(String factoryName) {
-        this.factoryName = factoryName;
     }
 }

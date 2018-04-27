@@ -1,12 +1,12 @@
 /**
  * Created by IntelliJ IDEA.
  * User: xsiry
- * Date: 2017/11/08
- * Time: 12:14
+ * Date: 2018/04/27
+ * Time: 10:14
  */
 
 define(function(require, exports, module) {
-    let $ = require('jquery');
+    var $ = require('jquery');
     require('bootstrap');
     require('jquery-confirm');
 
@@ -14,37 +14,37 @@ define(function(require, exports, module) {
     // require('select2_zh_CN');
     require('webuploader');
 
-    let self_ = $('.game');
-    let $table = self_.find('#table');
+    var self_ = $('.e_sett');
+    var $table = self_.find('#table');
 
-    let url = '/game',
-        table = 't_game',
-        source_id = 'gameid',
-        row_name = 'gamename',
-        sort_name = 'gamename',
+    var url = '/e_sett',
+        table = 't_employee_sett',
+        source_id = 'id',
+        row_name = '',
+        sort_name = '',
         sort_order = 'asc',
         validationInput = {
-            gamename: {
-                validators: {
-                    notEmpty: {
-                        message: '该项不能为空'
-                    }
-                }
-            },
-            url: {
-                validators: {
-                    notEmpty: {
-                        message: '该项不能为空'
-                    }
-                }
-            },
-            parentid: {
-                validators: {
-                    notEmpty: {
-                        message: '该项不能为空'
-                    }
-                }
-            }
+            // gamename: {
+            //     validators: {
+            //         notEmpty: {
+            //             message: '该项不能为空'
+            //         }
+            //     }
+            // },
+            // url: {
+            //     validators: {
+            //         notEmpty: {
+            //             message: '该项不能为空'
+            //         }
+            //     }
+            // },
+            // parentid: {
+            //     validators: {
+            //         notEmpty: {
+            //             message: '该项不能为空'
+            //         }
+            //     }
+            // }
         };
 
     module.exports = {
@@ -94,7 +94,7 @@ define(function(require, exports, module) {
                     text: '确认',
                     btnClass: 'waves-effect btn-primary',
                     action: function () {
-                        let self = this;
+                        var self = this;
                         self.$content.find('form').submit();
                         return false;
                     }
@@ -105,7 +105,7 @@ define(function(require, exports, module) {
                 }
             },
             onOpen: function () {
-                let self = this;
+                var self = this;
                 setTimeout(function () {
                     // 上传插件初始化
                     uploadFile([]);
@@ -149,9 +149,9 @@ define(function(require, exports, module) {
                         e.preventDefault();
 
                         // Get the form instance
-                        let $form = $(e.target);
+                        var $form = $(e.target);
 
-                        let params = {};
+                        var params = {};
 
                         $.each($form.serializeArray(), function (i, o) {
                             params[o.name] = o.value;
@@ -183,7 +183,7 @@ define(function(require, exports, module) {
                         }
 
                         $.post(url , params, function (result) {
-                            let msg;
+                            var msg;
                             toastr.options = {
                                 closeButton: true,
                                 progressBar: true,
@@ -220,15 +220,15 @@ define(function(require, exports, module) {
 
     // 上传初始化
     function uploadFile(urls) {
-        let option = {
-            url: '/file/upload/game',
+        var option = {
+            url: '/file/upload/e_sett',
             field: 'pngname',
             upload_main: '#x-uploader',
             list_block: '#x-fileList',
             upload_btn: '#x-upload',
             pick_btn: '#x-picker'
         };
-        let upload = require('upload');
+        var upload = require('upload');
         if (urls.length > 0){
             upload._addFilePreview(urls);
         } else {
@@ -238,7 +238,7 @@ define(function(require, exports, module) {
     }
 
     // 删除
-    function deleteAction(row) {
+    function devareAction(row) {
         $.confirm({
             type: 'red',
             animationSpeed: 300,
@@ -251,7 +251,7 @@ define(function(require, exports, module) {
                     btnClass: 'waves-effect waves-button',
                     action: function() {
                         $.post(url + '/del', { tid: row[source_id], tname: table }, function(result) {
-                            let msg;
+                            var msg;
                             toastr.options = {
                                 closeButton: true,
                                 progressBar: true,
@@ -302,15 +302,6 @@ define(function(require, exports, module) {
         require('bootstrap-table-zh-CN');
         $table.bootstrapTable({
             url: url,
-            queryParams: function(params) {
-                let x_params = {};
-                x_params.source = table;
-                x_params.page = params.offset;
-                x_params.pagesize = params.limit;
-                x_params.sortname = params.sort;
-                x_params.sortorder = params.order;
-                return x_params;
-            },
             idField: source_id,
             sortName: sort_name,
             sortOrder: sort_order,
@@ -345,15 +336,15 @@ define(function(require, exports, module) {
     }
     // 搜索
     function f_search() {
-        let qjson = {};
-        let qjsonkeytype = {};
+        var qjson = {};
+        var qjsonkeytype = {};
 
         qjson[self_.find('select[name="searchWhere"]').val()] = self_.find('input[name="searchText"]').val();
         qjsonkeytype[self_.find('select[name="searchWhere"]').val()] = "LIKE_ALL";
 
-        let status = self_.find('select[name="status"]').val();
+        var status = self_.find('select[name="status"]').val();
 
-        let gridparms = {
+        var gridparms = {
             source: table,
             qhstr: JSON.stringify({
                 qjson: [qjson, {'status': status}],
@@ -368,7 +359,7 @@ define(function(require, exports, module) {
             createAsUpdateAction(row)
         },
         'click .remove': function(e, value, row, index) {
-            deleteAction(row);
+            devareAction(row);
         },
         'click .apply': function(e, value, row, index) {
             updateStatus(row);
@@ -386,7 +377,7 @@ define(function(require, exports, module) {
     };
 
     function updateStatus(row) {
-        let select = '<div style="margin-bottom: 15px;"><select id="game_menu" name="game_menu_id" style="width: 250px;"></select></div>';
+        var select = '<div style="margin-bottom: 15px;"><select id="game_menu" name="game_menu_id" style="width: 250px;"></select></div>';
 
         $.confirm({
             type: row.status === "0"? 'green': 'red',
@@ -399,14 +390,14 @@ define(function(require, exports, module) {
                     text: '确认',
                     btnClass: 'waves-effect waves-button',
                     action: function() {
-                        let self = this;
-                        let params = {
+                        var self = this;
+                        var params = {
                             gameid: row.gameid,
                             status: row.status === "0"?"1":"0"
                         };
 
                         if (row.category === "0") {
-                            let gmid = self.$content.find('select[name="game_menu_id"]').val();
+                            var gmid = self.$content.find('select[name="game_menu_id"]').val();
                             if (gmid) {
                                 params['game_menu_id'] = gmid
                             } else {
@@ -427,7 +418,7 @@ define(function(require, exports, module) {
                         if (row.status === "1") params['game_menu_id'] = 0;
 
                         $.post(url, params, function(result) {
-                            let msg;
+                            var msg;
                             toastr.options = {
                                 closeButton: true,
                                 progressBar: true,

@@ -1,7 +1,8 @@
 define([
-    { field: 'factoryName', title: '厂商名称', sortable: true, halign: 'center' },
-    { field: 'inTotal', title: '总进货', sortable: true, halign: 'center' },
-    { field: 'outTotal', title: '总出货', sortable: true, halign: 'center' },
+    { field: 'factoryName', title: '名称', sortable: true, halign: 'center' },
+    { field: 'factoryAdd', title: '地址', sortable: true, halign: 'center' },
+    { field: 'contno', title: '电话', sortable: true, halign: 'center' },
+    { field: 'remake', title: '备注', sortable: true, halign: 'center' },
     { field: 'action', title: '操作', halign: 'center', align: 'center', formatter: actionFormatter, events: 'factoryNameActionEvents', clickToSelect: false }
 ]);
 
