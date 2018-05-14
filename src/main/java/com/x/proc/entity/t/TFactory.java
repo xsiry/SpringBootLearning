@@ -2,6 +2,7 @@ package com.x.proc.entity.t;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +17,8 @@ public class TFactory extends Model<TFactory> {
 
     private static final long serialVersionUID = -4295199308475121609L;
 
-    private Long id;
+    @TableId
+    private String guid;
     /**
      * 厂商名称
      */
@@ -25,6 +27,7 @@ public class TFactory extends Model<TFactory> {
     /**
      * 厂商地址
      */
+    @TableField("factory_add")
     private String factoryAdd;
     /**
      * 厂商电话
@@ -42,8 +45,8 @@ public class TFactory extends Model<TFactory> {
 
     }
 
-    public TFactory(Long id, String factoryName, String factoryAdd, String contno, String remake, List<TProduct> products) {
-        this.id = id;
+    public TFactory(String guid, String factoryName, String factoryAdd, String contno, String remake, List<TProduct> products) {
+        this.guid = guid;
         this.factoryName = factoryName;
         this.factoryAdd = factoryAdd;
         this.contno = contno;
@@ -53,15 +56,7 @@ public class TFactory extends Model<TFactory> {
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        return this.guid;
     }
 
     public String getFactoryName() {
@@ -102,5 +97,13 @@ public class TFactory extends Model<TFactory> {
 
     public void setProducts(List<TProduct> products) {
         this.products = products;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 }

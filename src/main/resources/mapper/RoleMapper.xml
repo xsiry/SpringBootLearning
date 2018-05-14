@@ -8,6 +8,6 @@
     </sql>
 
     <select id="selectCom" resultType="com.x.proc.entity.sys.SysRole">
-        SELECT id, remarks FROM sys_role;
+        SELECT guid, remarks FROM sys_role;
     </select>
 </mapper>

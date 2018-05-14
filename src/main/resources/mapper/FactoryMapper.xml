@@ -7,6 +7,6 @@
     </sql>
 
     <select id="selectCom" resultType="com.x.proc.entity.t.TFactory">
-        SELECT id, factory_name FROM t_factory;
+        SELECT guid, factory_name FROM t_factory;
     </select>
 </mapper>

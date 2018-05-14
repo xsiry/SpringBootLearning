@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.x.proc.entity.t.TProduct">
-        <id column="id" property="id" />
+        <id column="guid" property="guid" />
         <result column="productName" property="productName" />
         <result column="core" property="core" />
         <result column="price" property="price" />
@@ -16,8 +16,8 @@
         <!--</association>-->
 
         <association property="factory" javaType="com.x.proc.entity.t.TFactory">
-            <id column="factory_id" property="id"/>
-            <result column="factoryId" property="id"/>
+            <id column="factory_guid" property="guid"/>
+            <result column="factoryGuid" property="guid"/>
             <result column="factoryName" property="factoryName"/>
         </association>
     </resultMap>
@@ -28,6 +28,6 @@
     </sql>
 
     <select id="pageProductList" resultMap="BaseResultMap">
-        SELECT m.id id, m.product_name productName, m.core core, m.price price, m.total total, m.remake remake, n.id factoryId, n.factory_name factoryName FROM t_product m LEFT JOIN t_factory n ON m.factory_id = n.id
+        SELECT m.guid guid, m.product_name productName, m.core core, m.price price, m.total total, m.remake remake, n.guid factoryGuid, n.factory_name factoryName FROM t_product m LEFT JOIN t_factory n ON m.factory_guid = n.guid
     </select>
 </mapper>

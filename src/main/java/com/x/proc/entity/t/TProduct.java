@@ -2,6 +2,7 @@ package com.x.proc.entity.t;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 
 import java.io.Serializable;
 
@@ -15,7 +16,8 @@ public class TProduct extends Model<TFactory> {
 
     private static final long serialVersionUID = -5332553974926111150L;
 
-    private Long id;
+    @TableId
+    private String guid;
 
     /**
      * 名称
@@ -41,7 +43,8 @@ public class TProduct extends Model<TFactory> {
     /**
      * 所属厂商id
      */
-    private Long factoryId;
+    @TableField("factory_guid")
+    private String factoryGuid;
 
     /**
      * 所属厂商
@@ -53,28 +56,20 @@ public class TProduct extends Model<TFactory> {
 
     }
 
-    public TProduct(Long id, String productName, String core, double price, int total, String remake, Long factoryId, TFactory factory) {
-        this.id = id;
+    public TProduct(String guid, String productName, String core, double price, int total, String remake, String factoryGuid, TFactory factory) {
+        this.guid = guid;
         this.productName = productName;
         this.core = core;
         this.price = price;
         this.total = total;
         this.remake = remake;
         this.factory = factory;
-        this.factoryId = factoryId;
+        this.factoryGuid = factoryGuid;
     }
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        return this.guid;
     }
 
     public String getCore() {
@@ -125,11 +120,19 @@ public class TProduct extends Model<TFactory> {
         this.productName = productName;
     }
 
-    public Long getFactoryId() {
-        return factoryId;
+    public String getFactoryGuid() {
+        return factoryGuid;
     }
 
-    public void setFactoryId(Long factoryId) {
-        this.factoryId = factoryId;
+    public void setFactoryGuid(String factoryGuid) {
+        this.factoryGuid = factoryGuid;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 }

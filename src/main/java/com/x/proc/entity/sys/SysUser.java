@@ -2,6 +2,7 @@ package com.x.proc.entity.sys;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.x.proc.entity.enums.GenderEnum;
 import com.x.proc.entity.enums.RoleEnum;
 import com.x.proc.entity.enums.UserStateEnum;
@@ -27,17 +28,24 @@ public class SysUser extends Model<SysUser>{
      */
     public static final long ADMIN_USER_ID = 1;
 
-    private Long id; // 用户id
-    private RoleEnum roleId; // 角色id
+    @TableId
+    private String guid; // 用户id
+    @TableField("role_guid")
+    private RoleEnum roleGuid; // 角色id
     private String username; // 用户名
     private String password; // 密码
+    @TableField("rel_name")
     private String relName; // 真是姓名
     private GenderEnum gender; // 性别
     private String mobile; // 电话
+    @TableField("id_card")
     private String idCard; // 身份证号
+    @TableField("created_at")
     private Date createdAt; // 创建时间
+    @TableField("update_at")
     private Date updateAt; // 更新时间
     private UserStateEnum state; // 状态
+    @TableField("del_flag")
     private String delFlag; // 删除标记 1：删除 0：未删除
 
     /**
@@ -53,22 +61,6 @@ public class SysUser extends Model<SysUser>{
      */
     @TableField(exist = false)
     private List<SysMenu> menus = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public RoleEnum getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(RoleEnum roleId) {
-        this.roleId = roleId;
-    }
 
     public String getUsername() {
         return username;
@@ -136,7 +128,7 @@ public class SysUser extends Model<SysUser>{
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.guid;
     }
 
     public String getRoleIds() {
@@ -177,5 +169,21 @@ public class SysUser extends Model<SysUser>{
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+
+    public RoleEnum getRoleGuid() {
+        return roleGuid;
+    }
+
+    public void setRoleGuid(RoleEnum roleGuid) {
+        this.roleGuid = roleGuid;
     }
 }
